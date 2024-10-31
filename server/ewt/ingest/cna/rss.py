@@ -10,11 +10,6 @@ NSMAP = {
     'media': 'http://search.yahoo.com/mrss/',
 }
 
-MEDIA_BLACKLIST = (
-    'Getty',
-    'Shutterstock',
-)
-
 
 class CNAFeedingService(RSSFeedingService):
     NAME = 'cna rss'
@@ -49,8 +44,6 @@ class CNAFeedingService(RSSFeedingService):
                     media_credit = xml_item.find('media:content', NSMAP).find('media:credit', NSMAP).text
                 except AttributeError:
                     media_credit = None
-                if media_credit and any([provider in media_credit for provider in MEDIA_BLACKLIST]):
-                    continue
                 try:
                     media_title = xml_item.find('media:content', NSMAP).find('media:title', NSMAP).text
                 except AttributeError:
